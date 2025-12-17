@@ -1,0 +1,21 @@
+{
+  "name": "discord-builds",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "This repo tracks builds that were missed by datamining repos, this could also miss builds! (it works every 1min)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wavedevgit/discord-builds.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wavedevgit/discord-builds/issues"
+  },
+  "homepage": "https://github.com/wavedevgit/discord-builds#readme"
+}
