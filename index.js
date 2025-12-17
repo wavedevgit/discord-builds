@@ -15,9 +15,8 @@ if (!res.ok) {
 
 const html = await res.text()
 
-const buildMatch = html.match(/BUILD_NUMBER:"(\d+)"/)
-const hashMatch = html.match(/VERSION_HASH:"([a-f0-9]{40})"/)
-
+const buildMatch = html.match(/"BUILD_NUMBER":"(\d+)"/)
+const hashMatch = html.match(/"VERSION_HASH":"([a-f0-9]{40})"/)
 if (!buildMatch || !hashMatch) {
     console.error("Failed to extract build info")
     process.exit(1)
