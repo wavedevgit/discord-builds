@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Fetch Canary build
-        run: node fetch_canary.js
+        run: node index.js
 
       - name: Commit changes
         run: |
