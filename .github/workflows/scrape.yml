@@ -2,7 +2,7 @@ name: builds tracker
 
 on:
   schedule:
-    - cron: "* * * * *" # every 1 minute
+    - cron: "*/5 * * * *" # every 1 minute
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,11 @@ jobs:
           node-version: 18
 
       - name: Fetch Canary build
-        run: node index.js
+        run: |
+          for i in {1..5}; do
+            node main.js
+            sleep 50
+          done
 
       - name: Commit changes
         run: |
