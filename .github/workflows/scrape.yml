@@ -1,43 +1,46 @@
 name: builds tracker
 
 on:
-  schedule:
-    - cron: "*/5 * * * *" # every 1 minute
-  workflow_dispatch:
+    schedule:
+        - cron: '*/5 * * * *' # every 1 minute
+    workflow_dispatch:
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  track:
-    runs-on: ubuntu-latest
+    track:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
 
-      - name: Fetch Canary build
-        run: |
-          for i in {1..5}; do
-            node index.js
-            sleep 50
-          done
+            - name: Fetch Canary build
+              run: |
+                  for i in {1..5}; do
+                    node src/index.js
+                    sleep 50
+                  done
+            - name: Save last 200 builds on txt file
+              run: |
+                  bash src/get_last_200.sh
 
-      - name: Commit changes
-        run: |
-          latest=$(cat latest.txt)
-          build_id=${latest%%:*}
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git config user.name "canary-bot"
-            git config user.email "canary-bot@users.noreply.github.com"
-            git add .
-            git commit -m "canary: new build $build_id"
-            git push
-          else
-            echo "No new build"
-          fi
+            - name: Commit changes
+              run: |
+                  latest=$(cat latest.txt)
+                  build_id=${latest%%:*}
+                  if [[ -n "$(git status --porcelain)" ]]; then
+                    git config user.name "canary-bot"
+                    git config user.email "canary-bot@users.noreply.github.com"
+                    git add .
+                    git commit -m "canary: new build $build_id"
+                    git push
+                  else
+                    echo "No new build"
+                  fi
